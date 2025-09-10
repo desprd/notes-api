@@ -7,11 +7,13 @@ import com.ilyaproject.notesapi.exception.AuthorNotFoundException;
 import com.ilyaproject.notesapi.repository.AuthorRepository;
 import com.ilyaproject.notesapi.service.AuthorService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository repository;
@@ -22,6 +24,7 @@ public class AuthorServiceImpl implements AuthorService {
                 .name(createAuthorDTO.name())
                 .build();
         repository.save(author);
+        log.info("Author with name={} was create", createAuthorDTO.name());
     }
 
     @Override

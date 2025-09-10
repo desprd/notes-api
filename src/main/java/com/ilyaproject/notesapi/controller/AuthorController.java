@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,6 +30,7 @@ import java.util.List;
 @RequestMapping(path = "/api/v1")
 @Validated
 @RequiredArgsConstructor
+@Slf4j
 public class AuthorController {
 
     private final AuthorService authorService;
@@ -52,6 +54,7 @@ public class AuthorController {
     })
     @PostMapping("/authors")
     public ResponseEntity<ResponseDTO> createAuthor(@Valid @RequestBody CreateAuthorDTO createAuthorDTO){
+        log.info("POST /authors called with name={}", createAuthorDTO.name());
         authorService.createAuthor(createAuthorDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDTO(AuthorConstants.STATUS_201, AuthorConstants.MESSAGE_201));
@@ -76,6 +79,7 @@ public class AuthorController {
     })
     @GetMapping("/authors")
     public ResponseEntity<List<ReadAuthorDTO>> fetchAllAuthors(){
+        log.info("GET /authors called");
         List<ReadAuthorDTO> authors = authorService.fetchAllAuthors();
         return ResponseEntity.status(HttpStatus.OK).body(authors);
     }
@@ -99,6 +103,7 @@ public class AuthorController {
     })
     @GetMapping("/authors/{id}")
     public ResponseEntity<ReadAuthorDTO> fetchAuthorById(@PathVariable long id){
+        log.info("GET /authors/{id} called with id={}", id);
         ReadAuthorDTO author = authorService.fetchAuthorById(id);
         return ResponseEntity.status(HttpStatus.OK).body(author);
     }
