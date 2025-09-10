@@ -91,11 +91,18 @@ public class AuthorController {
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "HTTP Status Created"
+                    description = "HTTP Status OK"
             ),
             @ApiResponse(
                     responseCode = "404",
                     description = "HTTP Status Not Found",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
                     content = @Content(
                             schema = @Schema(implementation = ErrorResponseDTO.class)
                     )

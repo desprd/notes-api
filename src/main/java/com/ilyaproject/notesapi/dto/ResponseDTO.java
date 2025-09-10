@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public record ResponseDTO (
     @Schema(description = "Status code", example = "201")
     String statusCode,
+
     @Schema(description = "Response message", example = "Author was created successfully")
     String message
 ){}
